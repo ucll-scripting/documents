@@ -1,0 +1,158 @@
+\section{Languages as Tools}
+
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}
+  \frametitle{Programming Languages}
+  \begin{center}
+    \begin{tikzpicture}[language/.style={fill=blue!50,drop shadow}]
+      \node[language] at (0,0) { Java };
+      \node[language] at (4,1) { JavaScript };
+      \node[language] at (2,3) { Assembly };
+      \node[language] at (3,2) { \cpp };
+      \node[language] at (6,1) { \csharp };
+      \node[language] at (8,3) { Python };
+      \node[language] at (5,3) { Ruby };
+      \node[language] at (6,2) { Coq };
+      \node[language] at (6,0) { TypeScript };
+      \node[language] at (9,1) { Ada };
+      \node[language] at (3,0) { Scilab };
+      \node[language] at (1,1) { Elixir };
+      \node[language] at (0,2) { Swift };
+      \node[language] at (8,2) { Go };
+      \node[language] at (8,0) { Rust };
+    \end{tikzpicture}
+  \end{center}
+  \vskip5mm
+  \begin{center}
+    Why so many languages?
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Programming Languages}
+  \begin{itemize}
+    \item Languages are tools
+    \item Can be specialized
+      \begin{itemize}
+        \item Hammer
+        \item Screwdriver
+        \item Saw
+      \end{itemize}
+    \item Can be general usage
+      \begin{itemize}
+        \item Swiss army knife
+      \end{itemize}
+    \item Use the right tool for the right job
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Goal: Correctness}
+  \structure{Ada}
+  \begin{itemize}
+    \item Developed by military
+    \item Used in avionics, air traffic control, railways, banking, military and space technology
+  \end{itemize}
+  \vskip2mm
+  \structure{Coq}
+  \begin{itemize}
+    \item Allows to prove correctness
+    \item Very hard to use
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Goal: Speed}
+  \structure{C, \cpp}
+  \begin{itemize}
+    \item Old (1970s, 1980s)
+    \item Ubiquitous
+      \begin{itemize}
+        \item OSes (Linux, Windows)
+        \item Games (PS, XBox, \dots)
+        \item JVM
+      \end{itemize}
+    \item Hard to use
+    \item Very fast
+  \end{itemize}
+  \vskip2mm
+  \structure{Rust}
+  \begin{itemize}
+    \item Modern alternative
+    \item Developed by Mozilla
+    \item Hard to use
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Goal: Browser}
+  \structure{JavaScript}
+  \begin{itemize}
+    \item Can run in browser
+    \item Quick development
+  \end{itemize}
+  \vskip2mm
+  \structure{TypeScript}
+  \begin{itemize}
+    \item Superset of JavaScript
+    \item Compiler checks code
+  \end{itemize}
+  \vskip2mm
+  \structure{WASM}
+  \begin{itemize}
+    \item Web Assembly
+    \item Meant for speed
+    \item Hard to use
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Goal: Software Engineering}
+  \structure{Java, \csharp}
+  \begin{itemize}
+    \item Large scale programming
+      \begin{itemize}
+        \item Large code bases
+        \item Large teams
+      \end{itemize}
+    \item Compiler checks code
+    \item Fast
+    \item Security
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Metrics}
+  Languages differ on
+  \vskip5mm
+  \begin{itemize}
+    \item Speed (\link{https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html}{benchmarks})
+    \item Ease of use
+    \item Static analysis (compiler checks for bugs)
+    \item Security
+    \item Supported platform
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Python}
+  Where does Python fit in?
+  \vskip5mm
+  \begin{itemize}
+    \item Very easy to use
+    \item Speed: slow (but that's okay!)
+    \item Optional compiler checks
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{How Popular is Python?}
+  \begin{itemize}
+    \item \#3 in \link{https://insights.stackoverflow.com/survey/2020?ref=hackernoon.com\#technology-most-loved-dreaded-and-wanted-languages-loved}{Most Loved Languages}
+    \item \#1 in \link{https://insights.stackoverflow.com/survey/2020?ref=hackernoon.com\#technology-most-loved-dreaded-and-wanted-languages-wanted}{Most Wanted Languages}
+    \item \#3 in \link{https://insights.dice.com/2021/01/05/top-12-programming-languages-employers-want-early-2021/}{Job Postings}
+    \item \#2 on \link{https://octoverse.github.com/?ref=hackernoon.com}{GitHub}
+    \item \#1 in \link{https://linuxhint.com/10_best_programming_languages_2021/}{Best Programming Languages to Learn}
+  \end{itemize}
+\end{frame}

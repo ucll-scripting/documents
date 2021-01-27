@@ -1,0 +1,133 @@
+\section{Language Bindings}
+
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}
+  \frametitle{Operating System}
+  \structure{Services Provided by OS}
+  \begin{itemize}
+    \item File System
+    \item Graphical User Interface
+    \item Networking
+    \item Multimedia
+    \item \dots
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{APIs}
+  \begin{itemize}
+    \item \link{https://docs.microsoft.com/en-us/windows/win32/apiindex/windows-api-list}{Windows API}, \link{https://www.kernel.org/doc/html/v4.12/core-api/index.html}{Linux API}
+    \item Windows and Linux are written in C
+    \item OS services provided as C functions
+    \item Easily accessible if we use C for our own programs
+    \item But what if we use another language?
+  \end{itemize}
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      \begin{tikzpicture}[layer/.style={fill=blue!50,minimum width=4cm,minimum height=1cm,draw,anchor=south west,drop shadow},
+                          note/.style={draw,fill=green!50,opacity=.75,font=\small},
+                          arrow/.style={-latex,thick}]
+        \path[use as bounding box] (0,0) rectangle (4,4);
+        \node[layer] (os) at (0,0) { OS };
+        \node[layer] (program) at (0,2) { Program };
+        \node[note,anchor=south west] (os note) at ($ (os.north east) + (0.25,0.25) $) { Written in C };
+        \node[note,anchor=south west] (program note) at ($ (program.north east) + (0.25,0.25) $) { Written in C };
+        \draw[arrow] (os note.west) to[bend right=30] (os);
+        \draw[arrow] (program note.west) to[bend right=30] (program);
+        \draw[-latex,thick] (program.south) -- (os.north) node[midway,left,font={\small\ttfamily}] { playSound(sound); };
+      \end{tikzpicture}
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      \begin{tikzpicture}[layer/.style={fill=blue!50,minimum width=4cm,minimum height=1cm,draw,anchor=south west,drop shadow},
+                          note/.style={draw,fill=green!50,opacity=.75,font=\small},
+                          arrow/.style={-latex,thick}]
+        \path[use as bounding box] (0,0) rectangle (4,4);
+        \node[layer] (os) at (0,0) { OS };
+        \node[layer] (program) at (0,2) { Program };
+        \node[note,anchor=south west] (os note) at ($ (os.north east) + (0.25,0.25) $) { Written in C };
+        \node[note,anchor=south west] (program note) at ($ (program.north east) + (0.25,0.25) $) { Not written in C };
+        \draw[arrow] (os note.west) to[bend right=30] (os);
+        \draw[arrow] (program note.west) to[bend right=30] (program);
+        \draw[-latex,thick] (program.south) -- (os.north) node[midway,left,font={\small\ttfamily}] { ??? };
+      \end{tikzpicture}
+    \end{center}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Language Bindings}
+  \begin{itemize}
+    \item Most languages allow \emph{foreign functions}
+    \item Behave like regular functions
+    \item Are implemented in another language (probably C)
+    \item All necessary "translations" are done behind the scenes
+    \item Java examples
+      \begin{itemize}
+        \item \link{https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/System.java\#L415}{\texttt{System.currentTimeMillis()}}
+        \item \link{https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/io/FileInputStream.java}{Reading files}
+        \item \link{https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/Runtime.java}{Memory Usage}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Python}
+  \begin{itemize}
+    \item Many functions/classes/\dots are actually written in C
+    \item Python code glues these together
+    \item Speed of Python execution does not matter
+    \item Most time is spent in C code
+    \item Similar to military hierarchy
+      \begin{itemize}
+        \item General has overview, can take his time
+        \item Soldiers perform the work, must be efficient
+      \end{itemize}
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}[base/.style={circle,minimum size=2mm,inner sep=0mm},
+                        python/.style={base,fill=blue!50},c/.style={base,fill=red!50},
+                        arrow/.style={-latex}]
+      \node[python] (root) {};
+      \node[python] (a1) at ($ (root) + (-1.25,-0.5) $) {};
+      \node[python] (a2) at ($ (root) + (1.25,-0.5) $) {};
+      \draw[arrow] (root) -- (a1);
+      \draw[arrow] (root) -- (a2);
+      \foreach[evaluate={int(\i*2-1)} as \j,evaluate={int(\j+1)} as \k] \i in {1,2} {
+        \node[c] (b\j) at ($ (a\i) + (-0.5,-0.5) $) {};
+        \node[c] (b\k) at ($ (a\i) + (0.5,-0.5) $) {};
+        \draw[arrow] (a\i) -- (b\j);
+        \draw[arrow] (a\i) -- (b\k);
+      }
+      \foreach[evaluate={int(\i*2-1)} as \j,evaluate={int(\j+1)} as \k] \i in {1,...,4} {
+        \node[c] (c\j) at ($ (b\i) + (-0.25,-0.5) $) {};
+        \node[c] (c\k) at ($ (b\i) + (0.25,-0.5) $) {};
+        \draw[arrow] (b\i) -- (c\j);
+        \draw[arrow] (b\i) -- (c\k);
+      }
+      \foreach[evaluate={int(\i*2-1)} as \j,evaluate={int(\j+1)} as \k] \i in {1,...,8} {
+        \node[c] (d\j) at ($ (c\i) + (-0.125,-0.5) $) {};
+        \node[c] (d\k) at ($ (c\i) + (0.125,-0.5) $) {};
+        \draw[arrow] (c\i) -- (d\j);
+        \draw[arrow] (c\i) -- (d\k);
+      }
+
+      \draw[|-|] let \p1=(root) in (3,\y1) -- ++(0,-0.5) node[midway,right,font=\tiny] {Python, 10\% of the time};
+      \draw[|-|] let \p1=(a1) in (3,\y1) -- ++(0,-1.5)   node[midway,right,font=\tiny] {C, 90\% of the time};
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example}
+  \code[language=python3]{sum.py}
+  \begin{itemize}
+    \item Our own \texttt{my\_sum} definition written in Python
+    \item Built-in \texttt{sum} function written in C
+    \item Both do exactly the same thing
+    \item \texttt{sum} is 4-5$\times$ faster
+  \end{itemize}
+\end{frame}
