@@ -1,0 +1,562 @@
+\section{Validation}
+
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}
+  \frametitle{Validation}
+  \begin{itemize}
+    \item Checking if a string has a valid structure
+    \item User input validation
+    \item Examples
+      \begin{itemize}
+        \item Is string a valid integer number?
+        \item Is string a valid floating point number?
+        \item Is string a valid date?
+        \item Is string a valid time?
+        \item Is string a valid email address?
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example Problem \#1}
+  \begin{center}
+    Write a function \texttt{is\_valid\_float(string)} that checks if \texttt{string} is a valid floating point number.
+  \end{center}
+  \vskip5mm
+  \structure{Rules}
+  \begin{itemize}
+    \item \texttt{string} must only contain the following characters
+      \begin{itemize}
+        \item One or more digits
+        \item At most one minus sign, which if present must be in front
+        \item At most one dot
+      \end{itemize}
+    \item If a dot occurs, there must be at least one digit preceding it and one following it
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Possible Implementation}
+  \code[language=python3,font=\small,width=.95\linewidth]{is-valid-float.py}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example Problem \#2}
+  \begin{center}
+    Write a function \texttt{is\_valid\_date(string)} that checks if \texttt{string} is a valid date.
+  \end{center}
+  \vskip5mm
+  \structure{Rules}
+  \begin{itemize}
+    \item A date consist of three numbers separated by a separator
+    \item The first number must have exactly 2 digits
+    \item The second number must have exactly 2 digits
+    \item The third number must have exactly 2 or 4 digits
+    \item The separator must be either \texttt{-} or \texttt{/}
+    \item The same separator must be used twice
+    \item We don't care about the actual values of days or months (e.g., we allow month 54)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Possible Implementation}
+  \begin{center}
+    Left as an exercise to the reader
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Easier Solution?}
+  \begin{itemize}
+    \item Checking for validity can become complicated
+    \item Alternative: regular expressions
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Regular Expressions}
+  \begin{itemize}
+    \item A regular expression represents a pattern
+    \item We can ask "does this string satisfy this pattern?"
+    \item Regular expressions are a Domain Specific Language
+      \begin{itemize}
+        \item Ultra specialized in one task
+        \item Regular expressions can become quite cryptic
+        \item Made for succinctness, not readability
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Literal Pattern}
+  \structure{Regular Expression}
+  \begin{center}
+    \texttt{abcd}
+  \end{center}
+  \structure{Meaning}
+  \begin{center}
+    String must be equal to \texttt{abcd} exactly
+  \end{center}
+  \structure{Example}
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      String \texttt{"abcd"} matches the pattern \\[2mm]
+      All letters appear in the right order
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      String \texttt{"abc"} does not match the pattern \\[2mm]
+      \texttt{d} is missing
+    \end{center}
+
+    \onslide<3>
+    \begin{center}
+      String \texttt{"dabc"} does not match the pattern \\[2mm]
+      Letters appear in wrong order
+    \end{center}
+
+    \onslide<4-5>
+    \begin{center}
+      String \texttt{"ABCD"} does not match the pattern \\[2mm]
+      Regexes are case sensitive by default
+    \end{center}
+  \end{overprint}
+
+  \visible<5>{
+    \begin{center}
+      \tikz{
+        \node[fill=blue!50,draw] {
+          \parbox{8cm}{\centering
+            Regex is actually overkill in this case \\
+            Simple comparison is enough
+          }
+        }
+      }
+    \end{center}
+  }
+\end{frame}
+
+\begin{frame}
+  \frametitle{Repetition}
+  \structure{Regular Expression}
+  \begin{center}
+    \texttt{a*}
+  \end{center}
+  \structure{Meaning}
+  \begin{center}
+    String must containing zero or more \texttt{a}s
+  \end{center}
+  \structure{Example}
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      String \texttt{"aaaaa"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      String \texttt{"a"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<3>
+    \begin{center}
+      String \texttt{""} matches the pattern \\[2mm]
+      Zero \texttt{a}s is allowed
+    \end{center}
+
+    \onslide<4>
+    \begin{center}
+      String \texttt{"aaaax"} does not match the pattern \\[2mm]
+      Only \texttt{a}s are allowed
+    \end{center}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Repetition}
+  \structure{Regular Expression}
+  \begin{center}
+    \texttt{ab*c}
+  \end{center}
+  \structure{Meaning}
+  \begin{center}
+    String must start with \texttt{a}, then followed by zero or more \texttt{b}s and end with a \texttt{c}
+  \end{center}
+  \structure{Example}
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      String \texttt{"ac"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      String \texttt{"abc"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<3>
+    \begin{center}
+      String \texttt{"abbbbbbc"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<4>
+    \begin{center}
+      String \texttt{"bbbbc"} does not match the pattern \\[2mm]
+      Missing \texttt{a}
+    \end{center}
+
+    \onslide<5>
+    \begin{center}
+      String \texttt{"a"} does not match the pattern \\[2mm]
+      Missing \texttt{c}
+    \end{center}
+
+    \onslide<6>
+    \begin{center}
+      String \texttt{"aabababc"} does not match the pattern \\[2mm]
+      Only \texttt{b} can be repeated
+    \end{center}
+  \end{overprint}
+  \visible<6>{
+    \begin{center}
+      \tikz{
+        \node[fill=blue!50,draw] {
+          \parbox{8cm}{\centering
+            Note how the \texttt{*} only applies to the character directly preceding it
+          }
+        }
+      }
+    \end{center}
+  }
+\end{frame}
+
+\begin{frame}
+  \frametitle{Parentheses}
+  \structure{Regular Expression}
+  \begin{center}
+    \texttt{(ab)*c}
+  \end{center}
+  \structure{Meaning}
+  \begin{center}
+    String must start with zero or more \texttt{ab}s, followed by \texttt{c}
+  \end{center}
+  \structure{Example}
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      String \texttt{"abc"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      String \texttt{"ababc"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<3>
+    \begin{center}
+      String \texttt{"c"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<4>
+    \begin{center}
+      String \texttt{"ac"} does not match the pattern \\[2mm]
+      \texttt{a} on its own is not enough
+    \end{center}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Alternatives}
+  \structure{Regular Expression}
+  \begin{center}
+    \texttt{a|b}
+  \end{center}
+  \structure{Meaning}
+  \begin{center}
+    String must be equal to either \texttt{a} or \texttt{b}
+  \end{center}
+  \structure{Example}
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      String \texttt{"a"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      String \texttt{"b"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<3>
+    \begin{center}
+      String \texttt{"ab"} does not match pattern \\[2mm]
+      Either \texttt{a} or \texttt{b}, but not both
+    \end{center}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Character Class}
+  \structure{Regular Expression}
+  \begin{center}
+    \only<1-4>{
+      \texttt{(0|1|2|3|4|5|6|7|8|9)*}
+    }
+    \only<5>{
+      \texttt{[0123456789]*}
+    }
+    \only<6>{
+      \texttt{[0-9]*}
+    }
+    \only<7>{
+      \texttt{\textbackslash d}
+    }
+  \end{center}
+  \structure{Meaning}
+  \begin{center}
+    String must be equal to zero or more digits
+  \end{center}
+  \structure{Example}
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      String \texttt{"1"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      String \texttt{"555"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<3>
+    \begin{center}
+      String \texttt{"79856312"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<4-7>
+    \begin{center}
+      String \texttt{"78a31"} does not match pattern \\[2mm]
+      \texttt{a} is not allowed
+    \end{center}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Optional, At Least One}
+  \structure{Regular Expression}
+  \begin{center}
+    \texttt{-?[0-9]+}
+  \end{center}
+  \structure{Meaning}
+  \begin{center}
+    The string begins with an optional minus sign, followed
+    by one or more digits
+  \end{center}
+  \structure{Example}
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      String \texttt{"1"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      String \texttt{"-1"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<3>
+    \begin{center}
+      String \texttt{"764516"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<4>
+    \begin{center}
+      String \texttt{"77-"} does not match pattern \\[2mm]
+      Minus sign in the wrong place
+    \end{center}
+
+    \onslide<5>
+    \begin{center}
+      String \texttt{"-"} does not match pattern \\[2mm]
+      Needs at least one digit
+    \end{center}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Any Character, Number of Occurrences}
+  \structure{Regular Expression}
+  \begin{center}
+    \texttt{.{8,16}}
+  \end{center}
+  \structure{Meaning}
+  \begin{center}
+    The string consists of 8 to 16 arbitrary characters
+  \end{center}
+  \structure{Example}
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      String \texttt{"12345678"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      String \texttt{"1234567890ABCDEF"} matches the pattern \\[2mm]
+    \end{center}
+
+    \onslide<3>
+    \begin{center}
+      String \texttt{"1234567"} does not match the pattern \\[2mm]
+      Too few characters
+    \end{center}
+
+    \onslide<4>
+    \begin{center}
+      String \texttt{"1234567890ABCDEFG"} does not match pattern \\[2mm]
+      Too many characters
+    \end{center}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example Problem \#1: Reminder}
+  \begin{center}
+    Write a function \texttt{is\_valid\_float(string)} that checks if \texttt{string} is a valid floating point number.
+  \end{center}
+  \vskip5mm
+  \structure{Rules}
+  \begin{itemize}
+    \item \texttt{string} must only contain the following characters
+      \begin{itemize}
+        \item One or more digits
+        \item At most one minus sign, which if present must be in front
+        \item At most one dot
+      \end{itemize}
+    \item If a dot occurs, there must be at least one digit preceding it and one following it
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example Problem \#1: Using A Regular Expression}
+  \structure{Regex Under Construction}
+  \begin{center}\ttfamily
+    \only<1>{-}
+    \only<2>{-\alert{?}}
+    \only<3>{-?\alert{\textbackslash d}}
+    \only<4>{-?\textbackslash d\alert{+}}
+    \only<5>{-?\textbackslash d+\alert{.}}
+    \only<6>{-?\textbackslash d+\alert{\textbackslash}.}
+    \only<7>{-?\textbackslash d+\textbackslash.\alert{\textbackslash d+}}
+    \only<8>{-?\textbackslash d+\alert{(}\textbackslash.\textbackslash d+\alert{)?}}
+  \end{center}
+  \vskip5mm
+  \structure{Explanation}
+  \vskip2mm
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      We start with the minus sign
+    \end{center}
+    \onslide<2>
+    \begin{center}
+      The minus sign is optional, so we add the \texttt{?}
+    \end{center}
+    \onslide<3>
+    \begin{center}
+      Next comes a digit
+    \end{center}
+    \onslide<4>
+    \begin{center}
+      We allow multiple digits, but there needs to be at least one
+    \end{center}
+    \onslide<5>
+    \begin{center}
+      Next comes a dot
+    \end{center}
+    \onslide<6>
+    \begin{center}
+      Problem: \texttt{.} has a special meaning (= any character) \\
+      In order to express a literal dot, we need to "escape it"
+    \end{center}
+    \onslide<7>
+    \begin{center}
+      After the dot, one or more digits must appear
+    \end{center}
+    \onslide<8>
+    \begin{center}
+      The dot and the digits following it are optional
+    \end{center}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example Problem \#2: Reminder}
+  \begin{center}
+    Write a function \texttt{is\_valid\_date(string)} that checks if \texttt{string} is a valid date.
+  \end{center}
+  \vskip5mm
+  \structure{Rules}
+  \begin{itemize}
+    \item A date consist of three numbers separated by a separator
+    \item The first number must have exactly 2 digits
+    \item The second number must have exactly 2 digits
+    \item The third number must have exactly 2 or 4 digits
+    \item The separator must be either \texttt{-} or \texttt{/}
+    \item The same separator must be used twice
+    \item We don't care about the actual values of days or months (e.g., we allow month 54)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example Problem \#2: Using A Regular Expression}
+  \structure{Regex Under Construction}
+  \begin{center}\ttfamily
+    \only<1>{\textbackslash d\textbackslash d}
+    \only<2>{\textbackslash d\textbackslash d\alert{-}}
+    \only<3>{\textbackslash d\textbackslash d-\alert{\textbackslash d\textbackslash d}}
+    \only<4>{\textbackslash d\textbackslash d-\textbackslash d\textbackslash d\alert{-}}
+    \only<5>{\textbackslash d\textbackslash d-\textbackslash d\textbackslash d-\textbackslash d\textbackslash d(\textbackslash d\textbackslash d)?}
+    \only<6>{\alert{(}\textbackslash d\textbackslash d-\textbackslash d\textbackslash d-\textbackslash d\textbackslash d(\textbackslash d\textbackslash d)?\alert{)|(\textbackslash d\textbackslash d/\textbackslash d\textbackslash d/\textbackslash d\textbackslash d(\textbackslash d\textbackslash d)?)}}
+    \only<7>{\textbackslash d\textbackslash d\alert{([-/])}\textbackslash d\textbackslash d\alert{\textbackslash1}\textbackslash d\textbackslash d(\textbackslash d\textbackslash d)?}
+  \end{center}
+  \vskip5mm
+  \structure{Explanation}
+  \vskip2mm
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      Two digits for the day
+    \end{center}
+    \onslide<2>
+    \begin{center}
+      Separator, let's for now assume \texttt{-}
+    \end{center}
+    \onslide<3>
+    \begin{center}
+      Two digits for the month
+    \end{center}
+    \onslide<4>
+    \begin{center}
+      Second separator
+    \end{center}
+    \onslide<5>
+    \begin{center}
+      Two or four digits for year
+    \end{center}
+    \onslide<6>
+    \begin{center}
+      Same pattern but with separator \texttt{/}
+    \end{center}
+    \onslide<7>
+    \begin{center}
+      The \textbackslash1 is a backreference \\
+      It says "here needs to be the same as in the first group" \\
+      A group is formed using \texttt{()}, in this case it is \texttt{([-/])}
+    \end{center}
+  \end{overprint}
+\end{frame}
+
