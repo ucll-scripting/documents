@@ -9,11 +9,11 @@
     \item User input validation
     \item Examples
       \begin{itemize}
-        \item Is string a valid integer number?
-        \item Is string a valid floating point number?
-        \item Is string a valid date?
-        \item Is string a valid time?
-        \item Is string a valid email address?
+        \item Is this string a valid integer number?
+        \item Is this string a valid floating point number?
+        \item Is this string a valid date?
+        \item Is this string a valid time?
+        \item Is this string a valid email address?
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -553,10 +553,14 @@
     \end{center}
     \onslide<7>
     \begin{center}
-      The \textbackslash1 is a backreference \\
+      The \texttt{\textbackslash1} is a backreference \\
       It says "here needs to be the same as in the first group" \\
       A group is formed using \texttt{()}, in this case it is \texttt{([-/])}
     \end{center}
   \end{overprint}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Usage in Python}
+  \code[language=python3,width=.95\linewidth]{fullmatch.py}
+\end{frame}

@@ -1,0 +1,85 @@
+\section{Find All}
+
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}
+  \frametitle{Find All}
+  \begin{itemize}
+    \item Say you have a large string
+    \item You want to find all parts that satisfy a certain pattern
+    \item Examples
+      \begin{itemize}
+        \item Find all email addresses in a text document
+        \item Find all links in an html document
+        \item Find all web server request coming from a certain IP
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example Problem}
+  \begin{center}
+    Write a function \texttt{find\_email\_addresses} that looks for all email addresses in a document.
+  \end{center}
+  \vskip5mm
+  \structure{Rules}
+  \begin{itemize}
+    \item An email address consists of two parts: a user name and a domain name.
+    \item The user name and domain name are separated by an \texttt{@}.
+    \item The user name consists of one or more dot-separated nonempty alphanumeric strings.
+    \item The domain name consists of two or more dot-separated nonempty alphanumeric strings.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Solution}
+  \structure{Regex Under Construction}
+  \begin{center}\ttfamily\small
+    \only<1>{[a-zA-Z0-9]}
+    \only<2>{[a-zA-Z0-9]\alert{+}}
+    \only<3>{[a-zA-Z0-9]+\alert{\textbackslash.[a-zA-Z0-9]+}}
+    \only<4>{[a-zA-Z0-9]+\alert{(}\textbackslash.[a-zA-Z0-9]+\alert{)*}}
+    \only<5>{[a-zA-Z0-9]+(\textbackslash.[a-zA-Z0-9]+)*\alert{@}}
+    \only<6>{[a-zA-Z0-9]+(\textbackslash.[a-zA-Z0-9]+)*@\alert{[a-zA-Z0-9]+(\textbackslash.[a-zA-Z0-9]+)+}}
+  \end{center}
+  \vskip5mm
+  \structure{Explanation}
+  \vskip2mm
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      A single alphanumeric character can be
+      \begin{itemize}
+        \item a lowercase letter
+        \item an uppercase letter
+        \item a digit
+      \end{itemize}
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      An alphanumeric string contains one or more alphanumeric characters
+    \end{center}
+
+    \onslide<3>
+    \begin{center}
+      We add a second alphanumeric string which is separated from the first by a dot
+    \end{center}
+
+    \onslide<4>
+    \begin{center}
+      This extra part (dot + string) can be repeated zero or more times
+    \end{center}
+
+    \onslide<5>
+    \begin{center}
+      We add the \texttt{@}
+    \end{center}
+
+    \onslide<6>
+    \begin{center}
+      We repeat the user name pattern, except we require the \texttt{.string} part
+      is repeated at least once.
+    \end{center}
+  \end{overprint}
+\end{frame}

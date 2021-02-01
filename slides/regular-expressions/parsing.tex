@@ -1,0 +1,93 @@
+\section{Parsing}
+
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}
+  \frametitle{Parsing}
+  \begin{itemize}
+    \item Extracting specific parts from a string
+    \item Examples
+      \begin{itemize}
+        \item Extract day, month, year from date string
+        \item Extract hours, minutes, seconds from time string
+        \item Extract URL from HTML link
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example Problem}
+  \begin{center}
+    Write a function \texttt{parse\_time(string)} that extracts hours, minutes and am/pm from a string.
+  \end{center}
+  \vskip5mm
+  \structure{Rules}
+  \begin{itemize}
+    \item A time consists of
+      \begin{itemize}
+        \item A two digit number
+        \item A colon
+        \item A two digit number
+        \item A space
+        \item \texttt{am} or \texttt{pm}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Capturing Groups}
+  \begin{itemize}
+    \item We have used parentheses in multiple ways
+      \begin{itemize}
+        \item Bundling parts of the pattern, e.g., \texttt{(abc)*}
+        \item Backreferences, e.g., \texttt{(a|b)\textbackslash1*}
+      \end{itemize}
+    \item New way: capturing group
+    \item Tells you are interested in certain parts of the string
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Solution}
+  \structure{Regex Under Construction}
+  \begin{center} \ttfamily
+    \only<1>{\textbackslash d\textbackslash d}
+    \only<2>{\textbackslash d\textbackslash d\alert{:}}
+    \only<3>{\textbackslash d\textbackslash d:\alert{\textbackslash d\textbackslash d}}
+    \only<4>{\textbackslash d\textbackslash d:\textbackslash d\textbackslash d \alert{[ap]m}}
+    \only<5>{\alert{(}\textbackslash d\textbackslash d\alert{)}:\alert{(}\textbackslash d\textbackslash d\alert{)} \alert{(}[ap]m\alert{)}}
+  \end{center}
+  \vskip5mm
+  \structure{Explanation}
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      We start with the hours: two digits
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      Separator
+    \end{center}
+
+    \onslide<3>
+    \begin{center}
+      Minutes: again two digits
+    \end{center}
+
+    \onslide<4>
+    \begin{center}
+      \texttt{[ap]m} means "either \texttt{a} or \texttt{p}, followed by \texttt{m}"
+    \end{center}
+
+    \onslide<5>
+    \begin{center}
+      We add parentheses around the parts that are of interest to us
+    \end{center}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Python in Action}
+  \code[language=python3]{parse-time.py}
+\end{frame}
