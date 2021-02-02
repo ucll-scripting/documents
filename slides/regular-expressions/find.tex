@@ -78,8 +78,46 @@
 
     \onslide<6>
     \begin{center}
-      We repeat the user name pattern, except we require the \texttt{.string} part
+      We repeat the user name pattern, except we require the \texttt{.alphanum+} part
       is repeated at least once.
     \end{center}
   \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Python in Action}
+  \code[language=python3,width=.95\linewidth,font=\small]{findall.py}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bug!}
+  \code[language=python3,width=.95\linewidth,font=\small]{findall-bug.py}
+  \vskip5mm
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      Why these weird results?
+    \end{center}
+    \onslide<2>
+    \begin{center}
+      Capturing groups make \texttt{findall} think we're \\ only interested
+      in those parts \\[2mm]
+      We would prefer the complete email addresses \\ instead of just parts
+    \end{center}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Python in Action}
+  \code[language=python3,width=.95\linewidth,font=\small]{findall-fixed.py}
+  \begin{center}
+    By adding \texttt{?:} just after \texttt{(}, \\
+    we tell Python it's not a capturing group \\[2mm]
+    {\tiny we warned you it was cryptic}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Checking}
+  \code[language=python3,width=.95\linewidth,font=\small]{findall-fixed-use.py}
 \end{frame}
