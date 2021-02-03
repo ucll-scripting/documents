@@ -3,13 +3,146 @@
 \frame{\tableofcontents[currentsection]}
 
 \begin{frame}
-    \frametitle{Substitutions}
-    \begin{itemize}
-      \item Say you have a large string
-      \item You want to replace all occurrences of a certain pattern
-      \item Examples
-        \begin{itemize}
-          \item
-        \end{itemize}
-    \end{itemize}
-  \end{frame}
+  \frametitle{Substitutions}
+  \begin{itemize}
+    \item Say you have a large string
+    \item You want to replace all occurrences of a certain pattern
+    \item Examples
+      \begin{itemize}
+        \item Remove all comments from source code
+        \item Add anchor tags around email addresses in HTML
+        \item Change the format of dates
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example Problem}
+  \begin{center}
+    Write a function \texttt{remove\_comments(string)} that removes comments from source code.
+  \end{center}
+  \vskip5mm
+  \structure{Rules}\\[2mm]
+  A comment can be recognized by
+  \begin{itemize}
+    \item Everything after \texttt{//} until the end of a line is comment
+    \item Everything between \texttt{/* */} is comment
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Solution}
+  \structure{Regex Under Construction}
+  \begin{center} \ttfamily
+    \only<1>{//}
+    \only<2>{//\alert{.*}}
+    \only<3>{//.*\alert{\$}}
+    \only<4>{//.*\alert{?}\$}
+    \only<5>{//.*?\$\alert{|}}
+    \only<6>{//.*?\$|\alert{/*}}
+    \only<7>{//.*?\$|/\alert{\textbackslash}*}
+    \only<8>{//.*?\$|/\textbackslash*\alert{.*}}
+    \only<9>{//.*?\$|/\textbackslash*.*\alert{\textbackslash*/}}
+    \only<10>{//.*?\$|/\textbackslash*.*\alert{?}\textbackslash*/}
+  \end{center}
+  \vskip5mm
+  \structure{Explanation}
+  \vskip2mm
+  \begin{overprint}
+    \onslide<1>
+    \begin{center}
+      We start with the literal \texttt{//}
+    \end{center}
+
+    \onslide<2>
+    \begin{center}
+      Anything that follows is comment \\
+      This matches everything from \texttt{//} up to the end of the string
+    \end{center}
+
+    \onslide<3>
+    \begin{center}
+      \texttt{\$} is an anchor: anchors indicate a position between characters \\
+      In this case, \texttt{\$} matches the location at the end of the string \\
+      We can also make \texttt{\$} match the end of a line (see later), which is what we'll rely on here
+    \end{center}
+
+    \onslide<4>
+    \begin{center}
+      \texttt{.*} is said to be \emph{greedy}: it matches as much as possible \\
+      This causes the regex to match from \texttt{//} to the \emph{last} newline \\
+      By adding a \texttt{?} we make it \emph{non-greedy} \\
+      This causes the matching to stop as soon as a newline is found
+    \end{center}
+
+    \onslide<5>
+    \begin{center}
+      We introduce an alternative patting
+    \end{center}
+
+    \onslide<6>
+    \begin{center}
+      It starts with \texttt{/*}
+    \end{center}
+
+    \onslide<7>
+    \begin{center}
+      Uh oh! \\
+      \texttt{/*} means "zero or more slashes". \\
+      We want it to take the \texttt{*} literally. \\
+      We need to \emph{escape} the \texttt{*} by adding a \texttt{\textbackslash}.
+    \end{center}
+
+    \onslide<8>
+    \begin{center}
+      Any character can be comment
+    \end{center}
+
+    \onslide<9>
+    \begin{center}
+      We end the pattern with \texttt{*/}
+    \end{center}
+
+    \onslide<10>
+    \begin{center}
+      We run into trouble again with the greediness of \texttt{.*}. \\
+      For example, in \\ \texttt{/* x */ aaa /* y */} \\ it matches from the first \texttt{/*} to the \emph{last} \texttt{*/}, \\ thereby including \texttt{aaa} in the comment. \\
+      We need to make it non-greedy.
+    \end{center}
+  \end{overprint}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Python in Action}
+  \code[language=python3,width=.95\linewidth,font=\small]{sub.py}
+  \begin{itemize}
+    \item In order to allow \texttt{/* */} comments spread over multiple lines, the \texttt{.} must also match newlines
+    \item By default, \texttt{.} does \emph{not} match newlines
+    \item Adding \texttt{re.DOTALL} makes \texttt{.} match newlines
+    \item Adding \texttt{re.MULTILINE} makes \texttt{\$} match just before a newline
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example Problem}
+  \begin{center}
+    Write a function \texttt{fix\_dates} that changes the format of dates.
+  \end{center}
+  \vskip5mm
+  \structure{Rules}\\[2mm]
+  \begin{itemize}
+    \item A date is written as month/day/year
+    \item Month, day and year consist of digits
+    \item A date must be rewritten as day/month/year
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Python in Action}
+  \code[language=python3]{fix-dates.py}
+  \begin{itemize}
+    \item The substitution depends on what is matched
+    \item The replacement string should be "smart"
+    \item We can use \texttt{\textbackslash1}, \texttt{\textbackslash2}, \dots to refer to capturing groups
+  \end{itemize}
+\end{frame}
