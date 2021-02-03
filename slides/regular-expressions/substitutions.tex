@@ -146,3 +146,31 @@
     \item We can use \texttt{\textbackslash1}, \texttt{\textbackslash2}, \dots to refer to capturing groups
   \end{itemize}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Example Problem}
+  \begin{center}
+    Write a function \texttt{reverse\_words} that reverses each word.
+  \end{center}
+  \vskip5mm
+  \structure{Rules}\\[2mm]
+  \begin{itemize}
+    \item A word is any series of letters.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Python in Action}
+  \code[language=python3,width=.95\linewidth,font=\small]{reverse-words.py}
+  \begin{itemize}
+    \item Again, the substitution depends on what is matched
+    \item However, it is not a simple matter of rearranging groups
+    \item We pass a function as second parameter
+      \begin{itemize}
+        \item The function is called for each match
+        \item The function receives all match information
+        \item The function must return a string that will be used as replacement
+      \end{itemize}
+    \item Note: \texttt{group(0)} refers to the entire match
+  \end{itemize}
+\end{frame}
