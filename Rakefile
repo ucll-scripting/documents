@@ -8,29 +8,34 @@ slide_ids = Dir.chdir 'slides' do
   end
 end
 
-slide_ids.each do |id|
-    task id do
-        puts "Compiling #{id}"
-        Dir.chdir "slides/#{id}" do
-            puts `pdflatex main.tex`
-            puts `pdflatex main.tex`
-        end
+namespace :slides do
+  slide_ids.each do |id|
+      task id do
+          puts "Compiling #{id}"
+          Dir.chdir "slides/#{id}" do
+              puts `pdflatex main.tex`
+              puts `pdflatex main.tex`
+          end
 
-        source = "slides/#{id}/main.pdf"
-        target_dir = "dist/slides"
-        target_file = "#{target_dir}/#{id}.pdf"
-        puts "Copying #{source} to #{target_file}"
+          source = "slides/#{id}/main.pdf"
+          target_dir = "dist/slides"
+          target_file = "#{target_dir}/#{id}.pdf"
+          puts "Copying #{source} to #{target_file}"
 
-        FileUtils.mkdir_p target_dir
-        FileUtils.cp source, target_file
-    end
+          FileUtils.mkdir_p target_dir
+          FileUtils.cp source, target_file
+      end
+  end
+
+  task :clean do
+    FileUtils.rm_r 'dist'
+  end
+
+  task :all => [ :clean, *slide_ids ]
 end
 
-task :slides => [ :clean, *slide_ids ]
 
-task :clean do
-  FileUtils.rm_r 'dist'
-end
+
 
 task :upload do
   Dir.chdir 'dist' do
