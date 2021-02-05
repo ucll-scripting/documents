@@ -1,0 +1,4 @@
+if ( /regex/.test(string) )
+{
+    // ...
+}
