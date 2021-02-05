@@ -10,7 +10,8 @@ def compile_asciidoc(source, destination)
 
   attributes = {
     'nofooter' => true,
-    'source-highlighter' => 'pygments'
+    'source-highlighter' => 'pygments',
+    'toc' => 'left',
   }
 
   Asciidoctor.convert_file(source.to_s, safe: :safe, backend: 'html', to_file: destination.to_s, attributes: attributes)
