@@ -1,0 +1,29 @@
+= Useful Shell Commands
+
+== Entering a Subdirectory
+
+[source,bash]
+----
+$ cd subdirectory
+----
+
+== Going Up a Directory
+
+[source,bash]
+----
+$ cd ..
+----
+
+== View Contents of Current Directory
+
+[source,bash]
+----
+$ ls
+----
+
+== Opening a file with Code
+
+[source,bash]
+----
+$ code filename
+----
