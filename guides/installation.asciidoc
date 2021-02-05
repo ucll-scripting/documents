@@ -107,7 +107,7 @@ $ pip3 --version
 ----
 
 One of these should work and should output something mentioning Python 3.
-If this isn't the case, inform a lecturer.
+If pip is not recognized, you will have to https://pip.pypa.io/en/stable/installing/[look up] how to install it.
 
 == Course Related Material
 
