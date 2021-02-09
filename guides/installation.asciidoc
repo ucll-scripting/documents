@@ -6,6 +6,7 @@ Install the following software:
 
 * https://git-scm.com/[Git]
 * https://www.python.org/downloads/[Python 3]
+** Avoid using the Windows Store version
 ** During the installation, don't forget to have Python added to environment variables
 ** Also make sure that pip is selected as optional feature
 * https://code.visualstudio.com/[Visual Studio Code]
