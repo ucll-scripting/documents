@@ -19,33 +19,28 @@ How you update your exercises depends on how you downloaded the exercises.
 ====
 [note]
 =====
-[source,bash]
-----
-$ git pull
-----
-=====
-====
-
-
-.Forked
-[%collapsible]
-====
-[note]
-=====
-[source,bash]
-----
-$ git pull upstream master
-----
-=====
-====
-
-
 Open a terminal inside your local copy of the exercises (any subdirectory will do) and enter the following command:
 
 [source,bash]
 ----
 $ git pull
 ----
+=====
+====
+
+.Forked
+[%collapsible]
+====
+[note]
+=====
+Open a terminal inside your local copy of the exercises (any subdirectory will do) and enter the following command:
+
+[source,bash]
+----
+$ git pull upstream master
+----
+=====
+====
 
 ## Updating the `scripting` package
 
