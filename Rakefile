@@ -82,3 +82,6 @@ task :upload do
   `ssh -p 22345 -l upload leone.ucll.be rm -rf /home/frederic/courses/scripting/volume/docs`
   puts `scp -P 22345 -r dist upload@leone.ucll.be:/home/frederic/courses/scripting/volume/docs`
 end
+
+desc 'Generates and uploads'
+task :full => [ :all, :upload ]
