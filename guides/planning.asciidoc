@@ -1,0 +1,19 @@
+= Planning
+
+[cols="^,^,<5",options="header"]
+|===
+| Week | Location | Topic
+| 1 | Online | Python
+| 2 | Online | Python
+| 3 | On campus |
+| 4 | Online |
+| 5 | Online |
+| 6 | Online |
+| 7 | Online |
+| 8 | Online |
+| 9 | Online |
+| 10 | Online |
+| 11 | Online |
+| 12 | Online |
+| 13 | Online |
+|===
