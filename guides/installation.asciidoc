@@ -112,14 +112,12 @@ If pip is not recognized, you will have to https://pip.pypa.io/en/stable/install
 
 == Course Related Material
 
-Next, open a terminal in a directory where you wish to store your course-related files.
-Enter the commands below.
+Open a terminal in a directory where you wish to store your course-related files.
+Let's first install the testing framework:
 
 [source,bash]
 ----
 $ pip install git+https://github.com/ucll-scripting/testing-framework.git
-
-$ git clone https://github.com/ucll-scripting/exercises.git
 ----
 
 Test the installation of the scripting package by executing the following command.
@@ -138,3 +136,69 @@ positional arguments:
 optional arguments:
   -h, --help      show this help message and exit
 ----
+
+Next, you need to get access to the course material.
+The simplest way is cloning, but you can also choose to create your own fork.
+This allows you to save your work on GitHub, so that you're sure never to lose any of it.
+
+.Cloning
+[%collapsible]
+====
+[note]
+=====
+In a shell, write
+
+[source,bash]
+----
+$ git clone https://github.com/ucll-scripting/exercises.git
+----
+=====
+====
+
+.Forking
+[%collapsible]
+====
+[note]
+=====
+* Go to https://github.com/ucll-scripting/exercises.git[the repository's website].
+* Create a fork (button top right).
+* You have now created a copy of the repo under your own account. The URL should look like `https://github.com/<your GitHub name>/exercises.git`.
+* Clone your fork
++
+[source,bash]
+----
+$ git clone https://github.com/<your GitHub name>/exercises.git scripting-exercises
+----
+* Enter the repository's directory
++
+[source,bash]
+----
+$ cd scripting-exercises
+----
+* Link it to the original repository.
++
+[source,bash]
+----
+$ git remote add upstream https://github.com/ucll-scripting/exercises.git
+----
+
+Now you can save your work using
+
+[source,bash]
+----
+$ git add <file>
+$ git commit -m "some message"
+$ git push
+----
+
+Concrete example:
+
+[source,bash]
+----
+$ cd 01-basic-python/01-arithmetic/01-five/
+$ git add student.js
+$ git commit -m "finished 01-five"
+$ git push
+----
+=====
+====
