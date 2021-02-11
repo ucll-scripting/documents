@@ -196,7 +196,7 @@ Concrete example:
 [source,bash]
 ----
 $ cd 01-basic-python/01-arithmetic/01-five/
-$ git add student.js
+$ git add student.py
 $ git commit -m "finished 01-five"
 $ git push
 ----
